@@ -3,7 +3,6 @@ import numpy as np
 import xgboost as xgb
 
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import mean_squared_error, balanced_accuracy_score, roc_auc_score, make_scorer, confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 
@@ -58,12 +57,8 @@ print(sum(y)/len(y))
 
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.2, random_state=42, stratify=y)
-print(X_train.shape)
-print(X_test.shape)
-print(y_train.shape)
-print(y_test.shape)
-print(sum(y_train)/len(y_train))    
-print(sum(y_test)/len(y_test))
+print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
+print(sum(y_train)/len(y_train), sum(y_test)/len(y_test))
 
 # Booster (low-level API)
 dtrain = xgb.DMatrix(X_train, label=y_train)
@@ -100,16 +95,7 @@ ConfusionMatrixDisplay.from_predictions(
 )
 plt.show()
 
-# Grid Search param grid
-param_grid = {
-    'max_depth': [3, 4, 5],
-    'learning_rate': [0.1, 0.2, 0.3],
-    'gamma': [0.1, 0.2, 0.3],
-    'reg_lambda': [0, 1, 10.0],
-    'scale_pos_weight': [1, 3, 5]
-}
-
-# Final XGBClassifier after tuning (no early stopping)
+# Final XGBClassifier after tuning
 clf_xgb = xgb.XGBClassifier(
     seed=42,
     objective='binary:logistic',
@@ -120,19 +106,17 @@ clf_xgb = xgb.XGBClassifier(
     scale_pos_weight=3,
     subsample=0.9,
     colsample_bytree=0.5,
-    eval_metric='aucpr'  # Moved here from .fit()
+    eval_metric='aucpr'  # Put eval_metric here
 )
-
 
 clf_xgb.fit(
     X_train,
     y_train,
     verbose=True,
     eval_set=[(X_test, y_test)]
-    # Removed eval_metric from here
 )
 
-# Final Confusion Matrix (from classifier)
+# Final Confusion Matrix
 ConfusionMatrixDisplay.from_estimator(
     clf_xgb,
     X_test,
@@ -142,3 +126,34 @@ ConfusionMatrixDisplay.from_estimator(
     cmap='Blues'
 )
 plt.show()
+
+# Get booster
+bst = clf_xgb.get_booster()
+
+# Feature importances
+for importance_type in ('weight', 'gain', 'cover', 'total_gain', 'total_cover'):
+    print(f"{importance_type}: {bst.get_score(importance_type=importance_type)}")
+
+# Node styling
+node_params = {
+    'shape': 'box',
+    'style': 'filled, rounded',
+    'fillcolor': '#78cbe'
+}
+leaf_params = {
+    'shape': 'box',
+    'style': 'filled',
+    'fillcolor': '#e48038'
+}
+
+# Visualize first tree
+graphviz_plot = xgb.to_graphviz(
+    clf_xgb,
+    num_trees=0,
+    size="10,10",
+    condition_node_params=node_params,
+    leaf_node_params=leaf_params
+)
+
+# Save or render (to show in Jupyter or export)
+graphviz_plot.render("xgboost_tree_customer_churn", format="pdf")

@@ -1,0 +1,77 @@
+digraph {
+    graph [ rankdir=TB ]
+
+    0 [ label="Contract_Month-to-month" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    0 -> 1 [label="yes" color="#FF0000"]
+    0 -> 2 [label="no, missing" color="#0000FF"]
+
+    1 [ label="Dependents_Yes" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    1 -> 3 [label="yes" color="#FF0000"]
+    1 -> 4 [label="no, missing" color="#0000FF"]
+
+    3 [ label="Monthly_Charges<93.4000015" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    3 -> 7 [label="yes" color="#FF0000"]
+    3 -> 8 [label="no, missing" color="#0000FF"]
+
+    7 [ label="Online_Security_No" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    7 -> 13 [label="yes" color="#FF0000"]
+    7 -> 14 [label="no, missing" color="#0000FF"]
+
+    13 [ label="leaf=-0.156481609" fillcolor="#e48038" shape="box" style="filled" ]
+
+    14 [ label="leaf=-0.064942494" fillcolor="#e48038" shape="box" style="filled" ]
+
+    8 [ label="Contract_One year" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    8 -> 15 [label="yes" color="#FF0000"]
+    8 -> 16 [label="no, missing" color="#0000FF"]
+
+    15 [ label="leaf=-0.0852432773" fillcolor="#e48038" shape="box" style="filled" ]
+
+    16 [ label="leaf=0.00354744797" fillcolor="#e48038" shape="box" style="filled" ]
+
+    4 [ label="leaf=-0.197135895" fillcolor="#e48038" shape="box" style="filled" ]
+
+    2 [ label="Internet_Service_Fiber optic" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    2 -> 5 [label="yes" color="#FF0000"]
+    2 -> 6 [label="no, missing" color="#0000FF"]
+
+    5 [ label="Online_Security_No" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    5 -> 9 [label="yes" color="#FF0000"]
+    5 -> 10 [label="no, missing" color="#0000FF"]
+
+    9 [ label="Payment_Method_Electronic check" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    9 -> 17 [label="yes" color="#FF0000"]
+    9 -> 18 [label="no, missing" color="#0000FF"]
+
+    17 [ label="leaf=-0.0466610491" fillcolor="#e48038" shape="box" style="filled" ]
+
+    18 [ label="leaf=0.00463047717" fillcolor="#e48038" shape="box" style="filled" ]
+
+    10 [ label="Dependents_Yes" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    10 -> 19 [label="yes" color="#FF0000"]
+    10 -> 20 [label="no, missing" color="#0000FF"]
+
+    19 [ label="leaf=0.0559297875" fillcolor="#e48038" shape="box" style="filled" ]
+
+    20 [ label="leaf=-0.0434145592" fillcolor="#e48038" shape="box" style="filled" ]
+
+    6 [ label="Dependents_Yes" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    6 -> 11 [label="yes" color="#FF0000"]
+    6 -> 12 [label="no, missing" color="#0000FF"]
+
+    11 [ label="Online_Security_No" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    11 -> 21 [label="yes" color="#FF0000"]
+    11 -> 22 [label="no, missing" color="#0000FF"]
+
+    21 [ label="leaf=0.0658682063" fillcolor="#e48038" shape="box" style="filled" ]
+
+    22 [ label="leaf=0.123431183" fillcolor="#e48038" shape="box" style="filled" ]
+
+    12 [ label="Zip_Code<91741" fillcolor="#78cbe" shape="box" style="filled, rounded" ]
+    12 -> 23 [label="yes" color="#FF0000"]
+    12 -> 24 [label="no, missing" color="#0000FF"]
+
+    23 [ label="leaf=0.0665073842" fillcolor="#e48038" shape="box" style="filled" ]
+
+    24 [ label="leaf=-0.139463529" fillcolor="#e48038" shape="box" style="filled" ]
+}
