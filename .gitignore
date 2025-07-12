@@ -1,2 +1,7 @@
 Telco_customer_churn.xlsx
 env/
+env/
+*.so
+*.pkl
+__pycache__/
+.ipynb_checkpoints/
