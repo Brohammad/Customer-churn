@@ -16,4 +16,6 @@ df.columns = df.columns.str.replace(' ', '_')
 print(df.head())
 print(df['Total_Charges'].unique())
 
-df['Total_Charges'] = pd.to_numeric(df['Total_Charges'])
+#df['Total_Charges'] = pd.to_numeric(df['Total_Charges'])
+print(len(df.loc[df['Total_Charges'] == ' ']))
+df.loc[df['Total_Charges'] == ' ','Total_Charges'] = 0
