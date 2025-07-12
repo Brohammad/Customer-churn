@@ -10,3 +10,5 @@ from sklearn.model_selection import GridSearchCV
 
 df=pd.read_csv("Teleco_Customer_Churn.csv")
 print(df.head())
+df.drop(['Churn Label','Churn Score','CLTV','Churn Reason'],axis=1,inplace=True)
+print(df['Country'].unique())
