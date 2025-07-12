@@ -8,7 +8,12 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 from sklearn.model_selection import GridSearchCV
 
-df=pd.read_csv("Teleco_Customer_Churn.csv")
+df=pd.read_excel("Telco_customer_churn.xlsx")
+print(df['City'].unique())
+df.drop(['Churn Label','Count','Churn Score','CLTV','Lat Long','Churn Reason','CustomerID', 'State','Country'],axis=1,inplace=True)
+df['City'].replace(' ','_',regex=True,inplace=True)
+df.columns = df.columns.str.replace(' ', '_')
 print(df.head())
-df.drop(['Churn Label','Churn Score','CLTV','Churn Reason'],axis=1,inplace=True)
-print(df['Country'].unique())
+print(df['Total_Charges'].unique())
+
+df['Total_Charges'] = pd.to_numeric(df['Total_Charges'])
