@@ -5,7 +5,7 @@ import xgboost as xgb
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error,balanced_accuracy_score,roc_auc_score,make_scorer, confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
-
+import matplotlib.pyplot as plt
 from sklearn.model_selection import GridSearchCV
 
 df=pd.read_excel("Telco_customer_churn.xlsx")
@@ -55,3 +55,38 @@ print(y_train.shape)
 print(y_test.shape)
 print(sum(y_train)/len(y_train))    
 print(sum(y_test)/len(y_test))
+
+clf_xgb=xgb.XGBClassifier(objective='binary:logistic',missing=0,seed=42)
+dtrain = xgb.DMatrix(X_train, label=y_train)
+dvalid = xgb.DMatrix(X_test, label=y_test)
+
+params = {
+    'objective': 'binary:logistic',
+    'eval_metric': 'aucpr',
+    'eta': 0.1,
+    'max_depth': 6
+}
+
+evallist = [(dtrain, 'train'), (dvalid, 'eval')]
+
+bst = xgb.train(
+    params,
+    dtrain,
+    num_boost_round=500,
+    evals=evallist,
+    early_stopping_rounds=10,
+    verbose_eval=True
+)
+
+# Prediction (make sure y_pred is generated as before)
+y_pred = bst.predict(dvalid)
+y_pred = (y_pred > 0.5).astype(int)
+
+# Display Confusion Matrix with custom labels and integer formatting
+ConfusionMatrixDisplay.from_predictions(
+    y_test,
+    y_pred,
+    values_format='d',
+    display_labels=["Did not leave", "Left"]
+)
+plt.show()
