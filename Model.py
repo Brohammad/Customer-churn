@@ -25,3 +25,24 @@ print(X.head())
 y=df['Churn_Value'].copy()
 print(y.head())
 print(X.dtypes  )
+X_encoded = pd.get_dummies(X, columns=[
+    'City',
+    'Gender',
+    'Senior_Citizen',
+    'Partner',
+    'Dependents',
+    'Phone_Service',
+    'Multiple_Lines',
+    'Internet_Service',
+    'Online_Security',
+    'Online_Backup',
+    'Device_Protection',
+    'Tech_Support',
+    'Streaming_TV',
+    'Streaming_Movies',
+    'Contract',
+    'Paperless_Billing',
+    'Payment_Method'
+])
+
+print(X_encoded.head())
